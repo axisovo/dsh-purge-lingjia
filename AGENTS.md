@@ -1,8 +1,7 @@
 # AGENTS.md — 给 AI agent 的 dsh-purge-零甲 使用说明书
 
 > 写给**在 DSH 里干活的 agent**，不是营销文档。
-> 当前版本：**1.8.0** · 适配 DSH Desktop **0.2.2-rc.5**
-> 实测环境：**iPhone · RootHide 越狱（jbroot）· DSH 0.2.2-rc.5 web profile · Node 24 `--jitless`**（桌面/CLI 未在本机复测，见 [docs/environments.md](docs/environments.md)）（0.2.2-rc.1 / rc.2 / rc.3 / 0.2.1-rc.1 / rc.2 / rc.3 / rc.5 同样通过）
+> 当前版本：**1.8.0** · 适配 DSH Desktop **0.2.2-rc.5**（0.2.2-rc.1 / rc.2 / rc.3 / 0.2.1-rc.1 / rc.2 / rc.3 / rc.5 同样通过）
 > 版本号由 `npm run check:docs` 与 `package.json` 校验，发版必须同步；历史版本与 PR 记录在 [maintenance-archive](docs/maintenance-archive.md)，不要再写回本文件。
 
 ---
@@ -27,24 +26,6 @@
    `$DSH_HOME/dsh-purge-community/` 与 `$DSH_HOME/dsh-purge/` 继续被使用）。
 3. 确认 `dsh` 可执行体与 profile：`dsh --version`；profile 目录一般在
    `$DSH_HOME/profiles/<web|desktop|cli|dsh-tui>`。
-
-### D1.5 iOS / RootHide 越狱环境（本仓库唯一实测环境）
-
-```text
-宿主源码  …/Containers/Shared/AppGroup/.jbroot-*/var/mobile/dsh/dsh-ios/dsh/node_modules/@deepseek-ai/
-用户数据  …/var/mobile/dsh/dsh-ios/dsh-home/{profiles, dsh-purge, redteam}
-插件目录  …/dsh-home/profiles/web/node_modules/dsh-purge-lingjia/
-```
-
-- **Node 是定制构建**：`--jitless`、无 WebAssembly。任何依赖 undici `fetch` 的脚本会报
-  `WebAssembly is not defined`；本仓库的 GitHub 推送脚本因此是 Python（`scripts/push_to_github.py`），不是 node。
-- **没有 git / curl**：不要试图 `git clone` 或 `curl` 安装；用
-  `dsh plugin add <tgz>`、仓库自带 `scripts/install.sh`（bash）或 Python 脚本。
-- **越狱环境不要外部改宿主**：Host 文件属于 DSH 进程的 jbroot 视图，用 Filza/越狱工具改会被下一次「应用」覆盖，
-  也可能因 AppGroup 权限不可见而误判。只通过 `purge-lingjia apply / revert` 动宿主。
-- **重启 = 划掉 DSH App 再重开**（不是关窗口）。补丁写的是宿主模块文件，进程不热重载。
-- **`DSH_HOME` 拿不到时**：先 `echo $DSH_HOME`；为空就按 profile 探测（`…/dsh-home/profiles/<name>`），
-  不要自己拼 `/var/mobile/...` 的桌面端路径。
 
 ### D2. 安装（三选一）
 

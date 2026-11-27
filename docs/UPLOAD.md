@@ -112,48 +112,6 @@ RepoPocket 里的填法：
    - 资产名必须是 `dsh-purge-lingjia-1.8.0.tgz`：`package.json` 的 `dsh.install.tarball`、
      README 的固定版本链接、更新通道校验都按这个名字找。
 
-## 让 GitHub 正确「认出」这是发行版（About / Topics / Release）
-
-推完代码后还有三处元数据，直接决定别人搜不搜得到、仓库右侧栏有没有 Releases 条目：
-
-### 1. About 描述（带关键词）
-
-`Settings → General → Description`（或 API `PATCH /repos/{owner}/{repo}`）：
-
-```
-dsh-purge-零甲 · DeepSeek Harness 破甲插件（零甲整合版）· iOS RootHide 越狱实测 · DSH 0.2.2-rc.5 · 92 宿主补丁 + 4 个删甲出口
-```
-
-Website 填 `https://github.com/<owner>/dsh-purge-lingjia/releases/latest`。
-
-### 2. Topics（搜索权重最高的一处）
-
-`Settings → General → Topics`，建议直接粘这一串：
-
-```
-dsh  deepseek-harness  jailbreak  roothide  ios  jbroot  dsh-plugin  prompt-injection  zero-armor  破甲  零甲
-```
-
-### 3. Release 必须「已发布且非 draft / 非 prerelease」
-
-- tag 形如 `v1.8.0`，标题带版本号，正文写清本版变化（可用 `.github/release.yml` 的自动分类）；
-- 资产名必须是 `<包名>-<版本>.tgz`（本项目是 `dsh-purge-lingjia-1.8.0.tgz`）——
-  `package.json` 的 `dsh.install.tarball`、README 的固定版本链接、更新通道校验都按这个名字找；
-- `https://api.github.com/repos/<owner>/<repo>/releases/latest` 能返回该版本，GitHub 侧栏才会显示 "Releases 1"。
-
-一条命令检查三件事：
-
-```bash
-python3 - <<'EOF'
-import json,urllib.request
-u="https://api.github.com/repos/axisovo/dsh-purge-lingjia"
-for path,label in ((u,"repo"),(u+"/topics","topics"),(u+"/releases/latest","latest")):
-    r=urllib.request.Request(path,headers={"User-Agent":"chk","Accept":"application/vnd.github+json"})
-    d=json.loads(urllib.request.urlopen(r,timeout=20).read().decode())
-    print(label, d.get("description") or d.get("names") or d.get("tag_name"))
-EOF
-```
-
 ## 别提交的东西
 
 `.gitignore` 已经排掉：`node_modules/`、`*.bak`、`*.dshpurge.bak`、`*.dshperma.bak`、`scratch/`、`dist/`、`.env`。

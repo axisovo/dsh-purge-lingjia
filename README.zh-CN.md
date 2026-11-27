@@ -1,36 +1,14 @@
 # dsh-purge-零甲
 
-**DeepSeek Harness 破甲插件 · iOS RootHide 越狱环境实测 · DSH 0.2.2-rc.5 · 零甲层四出口删甲**
-
 <p>
   <img alt="version" src="https://img.shields.io/badge/version-1.8.0-7c3aed">
-  <img alt="platform" src="https://img.shields.io/badge/platform-iOS%20%C2%B7%20RootHide%20jailbreak-111111">
   <img alt="dsh" src="https://img.shields.io/badge/DSH-0.2.1--rc.1%20…%200.2.2--rc.5-0ea5e9">
   <img alt="node" src="https://img.shields.io/badge/Node.js-%E2%89%A518-339933">
   <img alt="license" src="https://img.shields.io/badge/license-MIT-65a30d">
   <img alt="patches" src="https://img.shields.io/badge/host%20patches-92%20%2F%204%20sinks-14b8a6">
-  <img alt="release" src="https://img.shields.io/github/v/release/axisovo/dsh-purge-lingjia?label=release">
 </p>
 
 **1.8.0**（当前版本）· 适配 **DSH Desktop 0.2.2-rc.5**（0.2.2-rc.1/rc.2/rc.3、0.2.1-rc.1/rc.2/rc.3/rc.5 同样通过）
-
-## 运行环境（先看这个）
-
-> ### 实测环境：iPhone · **RootHide 越狱**（jbroot 容器 / AppGroup 路径）· DSH **0.2.2-rc.5** web profile · Node 24（`--jitless`）
->
-> 本仓库 **92 条宿主补丁、零甲层 #97–#100、四个自测脚本的全部数字，都是在这台 iOS RootHide 越狱机上跑出来的**：
-> 宿主源码位于 `…/AppGroup/.jbroot-*/var/mobile/dsh/dsh-ios/dsh/node_modules/@deepseek-ai/`，
-> 数据目录位于同一 jbroot 下的 `dsh-home/`，插件通过 `web` profile 加载。
->
-> **为什么强调环境**：iOS 上的 DSH 是自带 Node 运行时（`--jitless`，无 WebAssembly）的定制包，
-> 进程空间、路径、重启方式都和桌面端不同；越狱环境（RootHide / jbroot）额外引入 AppGroup 路径与权限差异。
-> 换环境不是「应该也能跑」，而是**锚点与自检结论都要重新验证**。
->
-> 桌面端（macOS / Windows / Linux）与 CLI 路径来自上游通用实现，**未在本机复测**——按「未验证」对待，
-> 详见 [docs/environments.md](docs/environments.md)。
-
-**关键词 / Search**：dsh 破甲 · DSH 破甲插件 · DeepSeek Harness 破甲 · 越狱 iPhone 破甲 ·
-iOS RootHide 插件 · jbroot DSH · dsh-purge 零甲 · prompt injection · jailbreak · zero-armor · 无限制模式
 
 DeepSeek Harness 破甲插件。**dsh-purge-零甲** 在 [dsh-purge Community 1.7.20](https://github.com/kingcharleslzy-ai/dsh-purge) 的基础上做了三件事：
 
