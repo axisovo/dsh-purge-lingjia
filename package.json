@@ -1,7 +1,7 @@
 {
   "name": "dsh-purge-lingjia",
   "version": "1.8.0",
-  "description": "dsh-purge-零甲：DeepSeek Harness 破甲插件（零甲整合版）——92 条宿主补丁 + 四个出模型前的删甲出口 + 红队演练台。基于 dsh-purge Community（MIT）。",
+  "description": "dsh-purge-零甲：DeepSeek Harness 破甲插件（零甲整合版）。iOS RootHide 越狱实测 · DSH 0.2.2-rc.5 · 92 条宿主补丁 + 四个出模型前的删甲出口 + 红队演练台。基于 dsh-purge Community（MIT）。",
   "type": "module",
   "main": "lib/index.js",
   "icon": "./icon.png",
@@ -85,7 +85,12 @@
     "unrestricted",
     "零甲",
     "zero-armor",
-    "dsh-purge-lingjia"
+    "dsh-purge-lingjia",
+    "ios",
+    "roothide",
+    "jbroot",
+    "dsh-ios",
+    "iphone"
   ],
   "repository": {
     "type": "git",
