@@ -1,0 +1,36 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  selftest:
+    name: selftest (${{ matrix.os }} · node ${{ matrix.node }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        node: [20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      # 自测本身零依赖；只有文档一致性检查需要 yaml 解析器。
+      - run: npm i --no-save yaml
+      - name: 语法检查（全量 JS/MJS）
+        run: |
+          set -e
+          for f in $(git ls-files '*.js' '*.mjs' | grep -v '^test/fixtures/'); do
+            node --check "$f" || { echo "syntax error: $f"; exit 1; }
+          done
+      - name: 引擎自测（obsoleteWhenAbsent / 补丁表完整性 / 真实引擎复核）
+        run: node tools/selftest-engine.mjs
+      - name: 零甲自测（#97–#100 四出口行为）
+        run: node tools/selftest-zero-armor.mjs
+      - name: 文档与版本一致性
+        run: node scripts/check-docs.mjs

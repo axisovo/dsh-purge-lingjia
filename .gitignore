@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+*.bak
+*.bak-*
+*.dshpurge.bak
+*.dshperma.bak
+*.dshperma.v
+*.zero-armor-*.bak
+!test/fixtures/**/*.bak
+coverage/
+.env
+.env.*
+tmp/
+scratch/
+.blob-cache.json
