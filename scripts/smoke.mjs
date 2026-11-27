@@ -30,7 +30,7 @@ try {
   const bootstrapHome = path.join(tmp,"bootstrap-home"), profile = path.join(bootstrapHome,"profiles/desktop");
   fs.mkdirSync(profile,{recursive:true});fs.writeFileSync(path.join(profile,"package.json"),"{}");
   const bootEnv={...process.env,DSH_HOME:bootstrapHome,DSH_PROFILE:"desktop",PURGE_PROFILE_DIR:profile,PURGE_DSH_CLI:"",DSH_BASE:""};
-  const boot = execFileSync(process.execPath,[path.join(pkgDir,"bin/community.js"),"status"],{env:bootEnv,encoding:"utf8",timeout:30000});
+  const boot = execFileSync(process.execPath,[path.join(pkgDir,"bin/lingjia.js"),"status"],{env:bootEnv,encoding:"utf8",timeout:30000});
   if(JSON.parse(boot).package !== pkg.name) throw Error("Dependency-free bootstrap entry failed");
   ok("未安装依赖的解压包可以启动引导 CLI");
 
@@ -75,7 +75,7 @@ try {
   // 5) CLI 在空目录里也能给出 status（不崩）
   const home = path.join(tmp, "home");
   fs.mkdirSync(home, { recursive: true });
-  const out = execFileSync(process.execPath, [path.join(pkgDir, "bin/community.js"), "status"], {
+  const out = execFileSync(process.execPath, [path.join(pkgDir, "bin/lingjia.js"), "status"], {
     env: { ...process.env, DSH_HOME: home },
     encoding: "utf8",
   });

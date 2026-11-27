@@ -1,7 +1,7 @@
 // Generated from src/ by npm run build. Do not edit.
 // Derived UI: YuJunZhiXue/dsh-purge (MIT), see LICENSE.
 (()=>{const __PURGE_MODULE_URL__ = typeof document !== 'undefined' ? document.currentScript?.src : undefined;
-window.__ModuleLoader__.load({id:"dsh-purge-community",factory:(require)=>{
+window.__ModuleLoader__.load({id:"dsh-purge-lingjia",factory:(require)=>{
 var module={exports:{}};var exports=module.exports;
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -9172,7 +9172,7 @@ var zh = {
   "envGate.skipNo": "\u8FD4\u56DE",
   "envGate.skipYes": "\u786E\u8BA4\u6682\u4E0D\u914D\u7F6E",
   "envGate.go": "\u53BB\u73AF\u5883\u9002\u914D",
-  "compat.host": "dsh-purge Community {version} \xB7 \u5BBF\u4E3B DSH {host} \xB7 \u517C\u5BB9\u7EA7\u522B\uFF1A{level}",
+  "compat.host": "dsh-purge-零甲（二开版） {version} \xB7 \u5BBF\u4E3B DSH {host} \xB7 \u517C\u5BB9\u7EA7\u522B\uFF1A{level}",
   "compat.loading": "\u6B63\u5728\u8BFB\u53D6\u5BBF\u4E3B\u7248\u672C\u2026",
   "compat.unavailable": "\u8BFB\u4E0D\u5230\u5BBF\u4E3B\u517C\u5BB9\u4FE1\u606F\uFF1A{error}",
   "compat.level.qualified": "\u5DF2\u56DE\u5F52\u9A8C\u8BC1",
@@ -9614,7 +9614,7 @@ var en = {
   "envGate.skipNo": "Back",
   "envGate.skipYes": "Continue without tools",
   "envGate.go": "Open Env adapt",
-  "compat.host": "dsh-purge Community {version} \xB7 host DSH {host} \xB7 compatibility: {level}",
+  "compat.host": "dsh-purge-零甲（二开版） {version} \xB7 host DSH {host} \xB7 compatibility: {level}",
   "compat.loading": "Reading the host version\u2026",
   "compat.unavailable": "Host compatibility is unavailable: {error}",
   "compat.level.qualified": "regression verified",
@@ -13878,7 +13878,7 @@ function StatusStrip({ info }) {
       "span",
       { className: "dshpp-strip-item" },
       "\u63D2\u4EF6 ",
-      h("b", null, info?.plugin_version || "1.7.20")
+      h("b", null, info?.plugin_version || "1.8.0")
     )
   );
 }
@@ -13940,11 +13940,11 @@ function VersionNotice({ info }) {
     );
   }
   const backend = info?.plugin_version;
-  if (!backend || backend === "1.7.20") return null;
+  if (!backend || backend === "1.8.0") return null;
   return h(
     "p",
     { className: "dshpp-warn", role: "status" },
-    `\u5B98\u65B9\u7248\u672C ${backend}\uFF1B\u754C\u9762 ${"1.7.20"}\u3002\u4E24\u8005\u4E0D\u4E00\u81F4\u65F6\u8BBE\u7F6E\u53EF\u80FD\u4E0D\u751F\u6548\uFF0C\u8BF7\u66F4\u65B0\u5230\u540C\u4E00\u7248\u672C\u540E\u91CD\u542F DSH\u3002`
+    `\u5B98\u65B9\u7248\u672C ${backend}\uFF1B\u754C\u9762 ${"1.8.0"}\u3002\u4E24\u8005\u4E0D\u4E00\u81F4\u65F6\u8BBE\u7F6E\u53EF\u80FD\u4E0D\u751F\u6548\uFF0C\u8BF7\u66F4\u65B0\u5230\u540C\u4E00\u7248\u672C\u540E\u91CD\u542F DSH\u3002`
   );
 }
 function PurgePage() {
@@ -13994,7 +13994,7 @@ function PurgePage() {
           true ? h(
             "span",
             { className: "dshpp-page-ver" },
-            "\u793E\u533A\u7248 1.7.20"
+            "\u4E8C\u5F00\u7248 1.8.0"
           ) : null
         )
       )
@@ -15462,7 +15462,7 @@ function EnvAdaptSendGate() {
 }
 
 // src/entry.js
-var name = true ? "dsh-purge-community" : "dsh-purge-panel";
+var name = true ? "dsh-purge-lingjia" : "dsh-purge-panel";
 var inject = ["slots", "locale"];
 function PurgeIcon({ size = 20 } = {}) {
   return h(
@@ -15500,7 +15500,7 @@ function PurgeGlyphIcon({ size = 16 } = {}) {
 }
 function DetailSettings({ view } = {}) {
   if (view === "summary")
-    return h("span", null, "Purge \xB7 1.7.20");
+    return h("span", null, "lingjia \xB7 1.8.0");
   return h("div", { className: "dshpp-detail-settings" }, h(PurgePage));
 }
 function PanelOverlays() {
@@ -15554,9 +15554,9 @@ function apply(ctx) {
     () => ctx.slots.register(
       {
         name: "sidebar.panellist",
-        id: "dsh-purge",
+        id: "lingjia",
         order: 30,
-        label: "Purge",
+        label: "lingjia",
         inject: () => ({ t })
       },
       PurgeGlyphIcon
@@ -15567,7 +15567,7 @@ function apply(ctx) {
     () => ctx.slots.register(
       {
         name: "main",
-        key: "dsh-purge",
+        key: "lingjia",
         inject: () => ({ t })
       },
       PurgePage
@@ -15578,7 +15578,7 @@ function apply(ctx) {
     () => ctx.slots.register(
       {
         name: "plugins.bundle.config",
-        key: true ? "dsh-purge-community" : "dsh-purge-panel",
+        key: true ? "dsh-purge-lingjia" : "dsh-purge-panel",
         inject: () => ({ t })
       },
       DetailSettings

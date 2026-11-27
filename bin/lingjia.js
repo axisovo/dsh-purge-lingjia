@@ -27,7 +27,7 @@ const maintenance = () => new Maintenance({
   aiBase,
 });
 if (LEGACY[op]) {
-  const run = spawnSync(process.execPath, [path.join(ROOT, "bin", "dsh-purge.js"), LEGACY[op], ...rawArgs.slice(1)], { stdio: "inherit" });
+  const run = spawnSync(process.execPath, [path.join(ROOT, "bin", "dsh-purge-lingjia.js"), LEGACY[op], ...rawArgs.slice(1)], { stdio: "inherit" });
   process.exitCode = run.status === null ? 1 : run.status;
 } else try {
   let result;
@@ -209,7 +209,7 @@ if (LEGACY[op]) {
   } else if (op === "selfcheck" || op === "check-bypass") {
     // The extracted installer runs migrate before runtime dependencies are installed.
     const { selfCheck } = await import("../lib/selfcheck.js");
-    // 从 CLI 直接跑（node bin/community.js）时 argv 指向插件自身，currentHost() 认不出宿主；
+    // 从 CLI 直接跑（node bin/lingjia.js）时 argv 指向插件自身，currentHost() 认不出宿主；
     // selfCheck 允许传空 aiBase 走自己的解析，这里把 DSH_HOME 一起传下去，避免用默认值再猜一次。
     const report = await selfCheck(aiBase || "", process.env.DSH_HOME || findDshHome());
     process.exitCode = report.state === "broken" ? 1 : 0;
