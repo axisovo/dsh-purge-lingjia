@@ -131,7 +131,7 @@ purge-lingjia uninstall                                         # 卸载（数�
 | `purge-lingjia probe [new]` / `audit [--limit n]` / `boost [on\|off]` / `preset [status\|install [--force]]` | 运行时探针 / 最近动作记录 / 强化段开关 / `unrestricted` 预设落盘 | 0 |
 | `purge-lingjia usage` / `prune` / `backup` / `rollback <id>` / `apply` / `revert` / `uninstall` / `edit` | 备份占用 / 清理+GC / 快照 / 回滚插件 / 原版能力（转发 `dsh-purge`） | 0（`apply` 家族透传） |
 
-`purge-lingjia` 是命令简称，不保证装进 profile 后已在 PATH；先用当前 profile 的 `bin/community.js` 与正确运行时（见[CLI 回滚与定位说明](docs/INSTALLATION.md#cli-rollback)），不要为了找命令再装一份 npm 包。`selfcheck` 状态：`ok`（已确认）/ `pending`（待应用）/ `inferred`（宿主推导，黄）/ `unknown`（证据不足，黄）/ `broken`（已确认故障或权限不匹配）——**pending 不是故障**，点一次「应用」即可。
+`purge-lingjia` 是命令简称，不保证装进 profile 后已在 PATH；先用当前 profile 的 `bin/lingjia.js` 与正确运行时（见[CLI 回滚与定位说明](docs/INSTALLATION.md#cli-rollback)），不要为了找命令再装一份 npm 包。`selfcheck` 状态：`ok`（已确认）/ `pending`（待应用）/ `inferred`（宿主推导，黄）/ `unknown`（证据不足，黄）/ `broken`（已确认故障或权限不匹配）——**pending 不是故障**，点一次「应用」即可。
 
 ## 4. 运行时探针：证明"注入真的到了模型"
 

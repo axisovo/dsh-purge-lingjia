@@ -35,7 +35,7 @@ purge-lingjia backup
 purge-lingjia rollback <backup-id>
 # 已装插件无法加载时，用另行校验过的发行包 CLI：
 # 设置 PURGE_DSH_CLI / DSH_HOME / DSH_PROFILE 后执行
-node package/bin/community.js rollback <backup-id>
+node package/bin/lingjia.js rollback <backup-id>
 ```
 
 profile 不存在/有多个且未明确选择时停止。Web/Headless 只用当前服务 CLI；见 [实例定位](WEB-MAINTENANCE.md)。不扫描并误操作其他桌面安装。

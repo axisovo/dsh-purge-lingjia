@@ -138,7 +138,7 @@ Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'dsh-purge' imported from <pro
 - 记录失败阶段、DSH/插件版本、profile、下载源与 backup_id；隐藏用户名、私有地址、token。
 - 下载/校验失败尚未执行迁移，不应有安装改动。迁移失败保留快照，不能先删备份。
 - `purge-lingjia backup` 显式备份；`purge-lingjia rollback <id>` 验证快照后回滚插件代码与入口，保留当前用户内容。原锁文件保存在快照供核对，不盲目覆盖其他插件的新依赖。
-- 如果失败导致插件无法启动，可用已验证发行包的 `bin/community.js rollback <id>` 配合明确的当前 CLI/home/profile。见 [维护文档](MAINTENANCE.md)。
+- 如果失败导致插件无法启动，可用已验证发行包的 `bin/lingjia.js rollback <id>` 配合明确的当前 CLI/home/profile。见 [维护文档](MAINTENANCE.md)。
 - 禁止通用“修复”动作：删全部锁文件、清空全局缓存、关闭 minimumReleaseAge/trust/integrity、全局换源、自动重启或自动重打宿主补丁。
 
 <a id="cli-rollback"></a>
@@ -154,7 +154,7 @@ CLI/Web（macOS、Linux；已有 Node ≥18 和该实例的 `dsh` 命令；红�
 export DSH_HOME="${DSH_HOME:-$HOME/.dsh}"
 export DSH_PROFILE="${DSH_PROFILE:-web}"
 export PURGE_DSH_CLI="$(command -v dsh)"
-node "$DSH_HOME/profiles/$DSH_PROFILE/node_modules/dsh-purge-lingjia/bin/community.js" status
+node "$DSH_HOME/profiles/$DSH_PROFILE/node_modules/dsh-purge-lingjia/bin/lingjia.js" status
 ```
 
 `status` 返回维护状态中的 `backups` 数组。选定实际存在的 `id` 后，把同一命令末尾的 `status` 换成 `rollback "实际备份ID"`；不要使用示例/其他实例的 ID。回滚后核对版本和 bundle，保留回滚后新增的用户配置；旧进程仍需要用户手动重开。
@@ -165,10 +165,10 @@ macOS Desktop（下列示例用于可执行文件仍叫 `DeepSeek Harness` 的�
 export DSH_APP="${DSH_APP:-/Applications/DeepSeek Harness.app}"
 export DSH_HOME="${DSH_HOME:-$HOME/.dsh}"
 export DSH_PROFILE="${DSH_PROFILE:-desktop}"
-ELECTRON_RUN_AS_NODE=1 "$DSH_APP/Contents/MacOS/DeepSeek Harness" "$DSH_HOME/profiles/$DSH_PROFILE/node_modules/dsh-purge-lingjia/bin/community.js" status
+ELECTRON_RUN_AS_NODE=1 "$DSH_APP/Contents/MacOS/DeepSeek Harness" "$DSH_HOME/profiles/$DSH_PROFILE/node_modules/dsh-purge-lingjia/bin/lingjia.js" status
 ```
 
-选定该实例的备份后，将末尾的 `status` 换成 `rollback "实际备份ID"`。这里使用 Electron 的 Node 模式运行维护命令，不打开或重启 DSH 窗口。若原安装已损坏，先按 README 下载并校验发行包，将其解包到保留的恢复目录，再用其中的 `bin/community.js` 替换上面的插件脚本路径；不要指向另一个 home。
+选定该实例的备份后，将末尾的 `status` 换成 `rollback "实际备份ID"`。这里使用 Electron 的 Node 模式运行维护命令，不打开或重启 DSH 窗口。若原安装已损坏，先按 README 下载并校验发行包，将其解包到保留的恢复目录，再用其中的 `bin/lingjia.js` 替换上面的插件脚本路径；不要指向另一个 home。
 
 Windows Desktop：先按安装器错误提示或实际安装位置确定 exe，下面只需填写第一行真实路径。此处使用明确的进程等待，不能用 `& exe` 之后的 `$LASTEXITCODE` 判断 GUI 子系统程序已完成。
 
@@ -189,7 +189,7 @@ try {
 } finally { $env:ELECTRON_RUN_AS_NODE = $PreviousElectronMode }
 ```
 
-从输出选定备份 ID；将 `-ArgumentList` 中的 `'status'` 改成 `'rollback', '实际备份ID'` 后运行同一段。只接受输出中本实例的备份 ID，不照抄示例。CLI 损坏时使用校验后的恢复包 `bin/community.js`，仍沿用当前实例 exe、home、profile。不要代替用户重启。
+从输出选定备份 ID；将 `-ArgumentList` 中的 `'status'` 改成 `'rollback', '实际备份ID'` 后运行同一段。只接受输出中本实例的备份 ID，不照抄示例。CLI 损坏时使用校验后的恢复包 `bin/lingjia.js`，仍沿用当前实例 exe、home、profile。不要代替用户重启。
 
 ## 开发验收
 
@@ -246,7 +246,7 @@ macOS 不复制顶层 `Info.plist`，不创建 `.app` 路径，不通过 Finder�
 
 症状是安装另一个插件时，pnpm 报错的地址却是 Purge 的 `releases/latest/download`。在插件页停用只会改变加载状态，profile 依赖仍会参与解析。
 
-取得包含此修复的发行包并按上文核对 SHA256 后，用该包解出的 `bin/community.js migrate <已校验的本地 tgz 路径>` 对原 profile 执行迁移。保留原 DSH_HOME 和 DSH_PROFILE。迁移器会把本项目已识别的旧浮动地址替换为本机持久归档，已停用的插件继续停用。迁移失败会恢复原清单；发生错误时保留报错用于诊断。
+取得包含此修复的发行包并按上文核对 SHA256 后，用该包解出的 `bin/lingjia.js migrate <已校验的本地 tgz 路径>` 对原 profile 执行迁移。保留原 DSH_HOME 和 DSH_PROFILE。迁移器会把本项目已识别的旧浮动地址替换为本机持久归档，已停用的插件继续停用。迁移失败会恢复原清单；发生错误时保留报错用于诊断。
 
 ### Windows 官方桌面更新交接（主分支）
 
